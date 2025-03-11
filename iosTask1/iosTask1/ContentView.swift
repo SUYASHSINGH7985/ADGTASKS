@@ -1,45 +1,42 @@
 import SwiftUI
 
 struct ContentView: View {
-    // State variables for interactivity
     @State private var labelText = "Hello, World!"
     @State private var buttonColors: [Color] = [.blue, .green, .orange, .purple, .red]
     @State private var currentColorIndex = 0
     @State private var textFieldInput = ""
-    
-    // State variables for dynamic list
     @State private var items: [String] = UserDefaults.standard.stringArray(forKey: "items") ?? []
     @State private var newItem = ""
     
     var body: some View {
         TabView {
-            // Tab 1: Interactive View
+         
             VStack(spacing: 20) {
-                // Label
+               
                 Text(labelText)
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.black)
                 
-                // Character Count
+               
                 Text("Character count: \(textFieldInput.count)")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
-                // TextField
+             
                 TextField("Enter text", text: $textFieldInput)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
                     .padding(.horizontal)
                 
-                // Tap Me Button
+               
                 Button(action: {
                     withAnimation(.easeInOut(duration: 0.3)) {
-                        // Change label text
+                       
                         labelText = textFieldInput.isEmpty ? "No text entered" : textFieldInput
                         
-                        // Cycle through colors (only if buttonColors is not empty)
+                       
                         if !buttonColors.isEmpty {
                             currentColorIndex = (currentColorIndex + 1) % buttonColors.count
                         }
@@ -50,12 +47,12 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(buttonColors.isEmpty ? .blue : buttonColors[currentColorIndex]) // Fallback color
-                        .cornerRadius(10) // Fixed typo here
+                        .background(buttonColors.isEmpty ? .blue : buttonColors[currentColorIndex]) 
+                        .cornerRadius(10) 
                         .padding(.horizontal)
                 }
                 
-                // Reset Button
+              
                 Button(action: {
                     withAnimation(.easeInOut(duration: 0.3)) {
                         labelText = "Hello, World!"
@@ -78,10 +75,10 @@ struct ContentView: View {
                 Label("Home", systemImage: "house")
             }
             
-            // Tab 2: Dynamic List View
+           
             NavigationView {
                 VStack(spacing: 20) {
-                    // TextField and Add Button
+                    
                     HStack {
                         TextField("Enter new item", text: $newItem)
                             .padding()
@@ -105,7 +102,7 @@ struct ContentView: View {
                     }
                     .padding(.horizontal)
                     
-                    // List of Items
+                  
                     List {
                         ForEach(items, id: \.self) { item in
                             Text(item)
@@ -122,13 +119,13 @@ struct ContentView: View {
         }
     }
     
-    // Delete item from list
+
     private func deleteItem(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
         saveItems()
     }
     
-    // Save items to UserDefaults
+   
     private func saveItems() {
         UserDefaults.standard.set(items, forKey: "items")
     }

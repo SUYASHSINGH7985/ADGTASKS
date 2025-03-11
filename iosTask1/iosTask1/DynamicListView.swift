@@ -7,7 +7,7 @@ struct DynamicListView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                // TextField and Add Button
+                
                 HStack {
                     TextField("Enter new item", text: $newItem)
                         .padding()
@@ -31,7 +31,7 @@ struct DynamicListView: View {
                 }
                 .padding(.horizontal)
                 
-                // List of Items
+              
                 List {
                     ForEach(items, id: \.self) { item in
                         Text(item)
@@ -44,13 +44,13 @@ struct DynamicListView: View {
         }
     }
     
-    // Delete item from list
+   
     private func deleteItem(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
         saveItems()
     }
     
-    // Save items to UserDefaults
+   
     private func saveItems() {
         UserDefaults.standard.set(items, forKey: "items")
     }
